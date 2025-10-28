@@ -78,6 +78,7 @@ USAGE
   ./${SELF} pull  [service...]                Pull images
   ./${SELF} exec <service> [cmd...]           Exec perintah dalam container
   ./${SELF} shell <service>                   Masuk shell (bash/sh) container
+  ./${SELF} init-admin <username>             Set user sebagai admin di database
   ./${SELF} prune                             Down + bersihkan network dangling
   ./${SELF} clean --force                     Down -v + prune volumes/images (destruktif)
   ./${SELF} profiles                          Daftar profiles (jika didukung)
@@ -88,6 +89,7 @@ Contoh
   ./${SELF} up all
   ./${SELF} up api worker
   ./${SELF} logs -f api
+  ./${SELF} init-admin thelol
   PROJECT_NAME_OVERRIDE=myapp ./${SELF} up all
 EOF
 }
@@ -223,6 +225,35 @@ case "$cmd" in
       c exec -it "$svc" bash
     else
       c exec -it "$svc" sh
+    fi
+    ;;
+
+  init-admin)
+    if [[ $# -lt 1 ]]; then
+      log_err "Gunakan: ./${SELF} init-admin <username>"
+      exit 1
+    fi
+    username="$1"
+    log_step "Mengubah role user '$username' menjadi admin..."
+    
+    # Check if db service is running
+    if ! c ps db --format json | jq -e '.[] | select(.State == "running")' &>/dev/null; then
+      log_err "Service 'db' tidak berjalan. Jalankan './${SELF} up' terlebih dahulu."
+      exit 1
+    fi
+    
+    # Execute SQL command to update user role
+    if c exec db psql --user postgres -d gzctf -c "UPDATE \"AspNetUsers\" SET \"Role\"=3 WHERE \"UserName\"='$username';" 2>/dev/null; then
+      # Check if the update was successful
+      if c exec db psql --user postgres -d gzctf -c "SELECT \"UserName\", \"Role\" FROM \"AspNetUsers\" WHERE \"UserName\"='$username';" 2>/dev/null | grep -q "3"; then
+        log_ok "User '$username' berhasil diubah menjadi admin."
+      else
+        log_warn "Update berhasil dijalankan, tapi user '$username' mungkin tidak ditemukan atau role tidak berubah."
+        hint "Periksa dengan: ./${SELF} exec db psql --user postgres -d gzctf -c \"SELECT \\\"UserName\\\", \\\"Role\\\" FROM \\\"AspNetUsers\\\" WHERE \\\"UserName\\\"='$username';\""
+      fi
+    else
+      log_err "Gagal mengubah role user '$username'. Periksa apakah database berjalan dan user ada."
+      exit 1
     fi
     ;;
 
