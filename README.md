@@ -1,6 +1,8 @@
 # GZCTF Demo - Docker Compose Management
 
-A Docker Compose management script for GZCTF (Capture The Flag) platform
+A Docker Compose management script for GZCTF (Capture The Flag) platform.
+
+> **⚠️ Important**: This is a **demo repository** for learning and testing purposes. For production deployments, please use the official [GZCTF platform](https://github.com/GZTimeWalker/GZCTF) and [gzcli](https://github.com/dimasma0305/gzcli) tools.
 
 ## 🚀 Features
 
@@ -11,6 +13,19 @@ A Docker Compose management script for GZCTF (Capture The Flag) platform
 - **Service Management**: Complete lifecycle management for containers
 - **Error Handling**: Robust error handling with proper exit codes
 - **Cross-platform**: Works on Linux, macOS, and Windows (WSL)
+
+## 🏆 What is GZCTF?
+
+[GZCTF](https://github.com/GZTimeWalker/GZCTF) is an open-source Capture The Flag (CTF) platform used by universities and organizations worldwide. It features:
+
+- **Modern Web Interface**: Built with React and ASP.NET Core
+- **Challenge Management**: Support for various challenge types (Web, Crypto, Reverse, etc.)
+- **Real-time Scoring**: Live scoreboard and team rankings
+- **Multi-language Support**: Internationalization support
+- **Docker Integration**: Container-based challenge deployment
+- **Professional Grade**: Used in major CTF competitions globally
+
+This demo script helps you get started with GZCTF using Docker Compose, but for production deployments, consider using the official tools.
 
 ## 📋 Prerequisites
 
@@ -215,3 +230,53 @@ sudo ./thelol.sh up all
 - Ensure proper database credentials are configured
 - Use strong passwords for production environments
 - Regularly backup your database
+
+## 🌟 About GZCTF Platform
+
+This demo script is built for the [GZCTF](https://github.com/GZTimeWalker/GZCTF) platform, an open-source Capture The Flag (CTF) platform.
+
+### Official Resources
+
+- **🏆 GZCTF Platform**: [https://github.com/GZTimeWalker/GZCTF](https://github.com/GZTimeWalker/GZCTF)
+  - Official open-source CTF platform
+  - Full-featured with web interface, challenge management, and scoring system
+  - Used by universities and organizations worldwide
+  - Licensed under AGPL-3.0
+
+- **🛠️ gzcli**: [https://github.com/dimasma0305/gzcli](https://github.com/dimasma0305/gzcli)
+  - **Highly recommended for production deployments**
+  - Command-line interface for GZCTF management
+  - Advanced deployment and configuration tools
+  - Professional-grade automation and scripting
+
+### Getting Started with Official Tools
+
+1. **For Production CTF Events**:
+   ```bash
+   # Clone official GZCTF platform
+   git clone https://github.com/GZTimeWalker/GZCTF.git
+   
+   # Use gzcli for deployment
+   git clone https://github.com/dimasma0305/gzcli.git
+   ```
+
+2. **For Learning/Testing**:
+   - Use this demo repository
+   - Experiment with Docker Compose management
+   - Learn GZCTF basics before production deployment
+
+## 📝 License
+
+This demo project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Note**: The GZCTF platform itself is licensed under AGPL-3.0. Please refer to the [official repository](https://github.com/GZTimeWalker/GZCTF) for licensing details.
+
+## 🆘 Support
+
+For issues and questions:
+- **Demo Script Issues**: Create an issue in this repository
+- **GZCTF Platform Issues**: Visit [official GZCTF repository](https://github.com/GZTimeWalker/GZCTF)
+- **Production Deployment**: Check [gzcli documentation](https://github.com/dimasma0305/gzcli)
+- **General CTF Questions**: Check the troubleshooting section above
+
+*This demo script is not affiliated with the official GZCTF project. Use official tools for production deployments.*
