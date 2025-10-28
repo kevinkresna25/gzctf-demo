@@ -237,7 +237,7 @@ case "$cmd" in
     log_step "Mengubah role user '$username' menjadi admin..."
     
     # Check if db service is running
-    if ! c ps db --format json | jq -e '.[] | select(.State == "running")' &>/dev/null; then
+    if ! c ps db 2>/dev/null | grep -q "Up"; then
       log_err "Service 'db' tidak berjalan. Jalankan './${SELF} up' terlebih dahulu."
       exit 1
     fi
